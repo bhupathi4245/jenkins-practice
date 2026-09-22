@@ -23,17 +23,21 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh """ 
-                    echo "Hellow Build"
-                    sleep 10    // Simulate a long build.. testing timeout option with 10 SECONDS
-                    env
-                    echo "Hello ${params.PERSON}"
-                """
+                script {
+                    sh """ 
+                        echo "Hellow Build"
+                        sleep 10    // Simulate a long build.. testing timeout option with 10 SECONDS
+                        env
+                        echo "Hello ${params.PERSON}"
+                    """
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                script {
+                    echo 'Testing...'
+                }
             }
         }
         stage('Deploy') {
@@ -46,16 +50,13 @@ pipeline {
                 }
             }
             steps {
-                echo 'Deploying...'
-                echo "Hello, ${PERSON}, nice to meet you."
+                script {
+                    echo 'Deploying...'
+                    echo "Hello, ${PERSON}, nice to meet you."
+                }
             }
         }
-        stage('Example') {
-            steps {
-                echo "Hello ${params.PERSON}"
 
-            }
-        }
     }
 
     // post section
